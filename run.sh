@@ -16,13 +16,16 @@ function onCtrlC () {
 
 
 mkdir -p upstream-server/logs
+mkdir -p fake-kong/logs
 
 upstream_server_cmd="openresty -p upstream-server -c conf/nginx.conf"
+fake_kong_cmd="openresty -p fake-kong -c conf/nginx.conf"
 
 sudo ${upstream_server_cmd} || exit 1
+sudo ${fake_kong_cmd} || exit 1
 
 #############################################
-echo -e "\n\n upstream server "
+echo -e "\n\n upstream server"
 
 sleep 1
 
@@ -49,6 +52,22 @@ docker run -d --name kong-dbless \
     kong/kong-gateway:3.2
 
 sleep 20
+
+#############################################
+echo -e "\n\nfake kong: $worker_cnt worker"
+
+sleep 1
+
+sed -i "s/worker_processes auto/worker_processes ${worker_cnt}/g" fake-kong/conf/nginx.conf
+
+wrk -d 10 -c 16 http://127.0.0.1:1981/hello
+
+sleep 1
+
+wrk -d 10 -c 16 http://127.0.0.1:1981/hello
+
+sleep 1
+
 
 #############################################
 echo -e "\n\nkong: $worker_cnt worker + no plugin"
