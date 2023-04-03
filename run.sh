@@ -8,7 +8,7 @@ fi
 
 mkdir -p upstream-server/logs
 
-upstream_server_cmd="openresty -p upstream-server -c upstream-server/conf/nginx.conf"
+upstream_server_cmd="openresty -p upstream-server -c conf/nginx.conf"
 
 trap 'onCtrlC' INT
 function onCtrlC () {
