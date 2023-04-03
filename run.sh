@@ -131,3 +131,9 @@ sleep 1
 wrk -d 5 -c 16 http://127.0.0.1:8000/hello
 
 sleep 1
+
+sudo killall wrk
+sudo killall openresty
+sudo killall nginx
+docker rm -f kong-dbless
+sudo ${upstream_server_cmd} -s stop || exit 1
