@@ -29,10 +29,11 @@ docker run -d --name kong-dbless \
   -e "KONG_ADMIN_ACCESS_LOG=/dev/stdout" \
   -e "KONG_PROXY_ERROR_LOG=/dev/stderr" \
   -e "KONG_ADMIN_ERROR_LOG=/dev/stderr" \
-  -e "KONG_ADMIN_LISTEN=192.168.233.1:8001, 192.168.233.1:8444 ssl" \
+  -e "KONG_ADMIN_LISTEN=0.0.0.0:8001, 0.0.0.0:8444 ssl" \
   -e "KONG_PROXY_LISTEN=0.0.0.0:8000, 0.0.0.0:8444 ssl, 0.0.0.0:8086 ssl" \
   -e "KONG_STREAM_LISTEN=0.0.0.0:8087 ssl" \
-  kong/kong:3.2.0-ubuntu
+    kong/kong-gateway:3.2
+
 
 
 #############################################
