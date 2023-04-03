@@ -17,6 +17,8 @@ function onCtrlC () {
     sudo ${upstream_server_cmd} -s stop || exit 1
 }
 
+sudo ${upstream_server_cmd} || exit 1
+
 docker run -d --name kong-dbless \
   --network=host \
   -e "KONG_DATABASE=off" \
