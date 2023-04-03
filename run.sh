@@ -65,7 +65,7 @@ services:
 '
 
 
-curl -X POST http://127.0.0.1:8001/config -d "config=$kong_yaml"
+curl -X POST http://127.0.0.1:8001/config -d "config=$kong_yaml" > /dev/null
 
 sleep 1
 
@@ -95,7 +95,7 @@ plugins:
 '
 
 
-curl -X POST http://127.0.0.1:8001/config -d "config=$kong_yaml"
+curl -X POST http://127.0.0.1:8001/config -d "config=$kong_yaml" > /dev/null
 
 sleep 1
 
@@ -131,7 +131,7 @@ plugins:
 '
 
 
-curl -X POST http://127.0.0.1:8001/config -d "config=$kong_yaml"
+curl -X POST http://127.0.0.1:8001/config -d "config=$kong_yaml" > /dev/null
 
 sleep 1
 
