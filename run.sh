@@ -14,6 +14,8 @@ trap 'onCtrlC' INT
 function onCtrlC () {
     sudo killall wrk
     sudo killall openresty
+    sudo killall nginx
+    docker rm -f kong-dbless
     sudo ${upstream_server_cmd} -s stop || exit 1
 }
 
@@ -51,8 +53,7 @@ services:
 ' > kong.yaml
 
 
-curl -X POST http://127.0.0.1:8001/config \
-    config=@kong.yaml
+curl -X POST http://127.0.0.1:8001/config config=@kong.yaml
 
 sleep 1
 
@@ -82,8 +83,7 @@ plugins:
 ' > kong.yaml
 
 
-curl -X POST http://127.0.0.1:8001/config \
-    config=@kong.yaml
+curl -X POST http://127.0.0.1:8001/config config=@kong.yaml
 
 sleep 1
 
@@ -119,8 +119,7 @@ plugins:
 ' > kong.yaml
 
 
-curl -X POST http://127.0.0.1:8001/config \
-    config=@kong.yaml
+curl -X POST http://127.0.0.1:8001/config config=@kong.yaml
 
 sleep 1
 
