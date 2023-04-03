@@ -6,10 +6,6 @@ else
     worker_cnt=1
 fi
 
-mkdir -p upstream-server/logs
-
-upstream_server_cmd="openresty -p upstream-server -c conf/nginx.conf"
-
 trap 'onCtrlC' INT
 function onCtrlC () {
     sudo killall wrk
@@ -18,6 +14,11 @@ function onCtrlC () {
     docker rm -f kong-dbless
     sudo ${upstream_server_cmd} -s stop || exit 1
 }
+
+
+mkdir -p upstream-server/logs
+
+upstream_server_cmd="openresty -p upstream-server -c conf/nginx.conf"
 
 sudo ${upstream_server_cmd} || exit 1
 
@@ -40,7 +41,7 @@ sleep 20
 
 #############################################
 echo -e "\n\nkong: $worker_cnt worker + no plugin"
-echo '_format_version: "2.1"
+kong_yaml='_format_version: "2.1"
 _transform: true
 
 services:
@@ -50,10 +51,10 @@ services:
   - name: example_route
     paths:
     - /
-' > kong.yaml
+'
 
 
-curl -X POST http://127.0.0.1:8001/config config=@kong.yaml
+curl -X POST http://127.0.0.1:8001/config -d "config=$kong_yaml"
 
 sleep 1
 
@@ -68,7 +69,7 @@ sleep 1
 #############################################
 echo -e "\n\nkong: $worker_cnt worker + prometheus plugin"
 
-echo '_format_version: "2.1"
+kong_yaml='_format_version: "2.1"
 _transform: true
 
 services:
@@ -80,10 +81,10 @@ services:
     - /
 plugins:
 - name: prometheus
-' > kong.yaml
+'
 
 
-curl -X POST http://127.0.0.1:8001/config config=@kong.yaml
+curl -X POST http://127.0.0.1:8001/config -d "config=$kong_yaml"
 
 sleep 1
 
@@ -99,7 +100,7 @@ sleep 1
 #############################################
 echo -e "\n\nkong: $worker_cnt worker + prometheus plugin enable high cardinality metrics"
 
-echo '_format_version: "2.1"
+kong_yaml='_format_version: "2.1"
 _transform: true
 
 services:
@@ -116,10 +117,10 @@ plugins:
     latency_metrics: true
     bandwidth_metrics : true
     upstream_health_metrics : true
-' > kong.yaml
+'
 
 
-curl -X POST http://127.0.0.1:8001/config config=@kong.yaml
+curl -X POST http://127.0.0.1:8001/config -d "config=$kong_yaml"
 
 sleep 1
 
