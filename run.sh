@@ -12,7 +12,6 @@ function onCtrlC () {
     sudo killall openresty
     sudo killall nginx
     docker rm -f kong-dbless
-    sudo ${upstream_server_cmd} -s stop || exit 1
 }
 
 
@@ -21,6 +20,18 @@ mkdir -p upstream-server/logs
 upstream_server_cmd="openresty -p upstream-server -c conf/nginx.conf"
 
 sudo ${upstream_server_cmd} || exit 1
+
+#############################################
+echo -e "\n\n upstream server "
+
+sleep 1
+
+wrk -d 10 -c 16 http://127.0.0.1:1980/hello
+
+sleep 1
+
+wrk -d 10 -c 16 http://127.0.0.1:1980/hello
+
 
 sleep 3
 
@@ -136,4 +147,3 @@ sudo killall wrk
 sudo killall openresty
 sudo killall nginx
 docker rm -f kong-dbless
-sudo ${upstream_server_cmd} -s stop || exit 1
