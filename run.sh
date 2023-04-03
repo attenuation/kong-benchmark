@@ -58,11 +58,11 @@ curl -X POST http://127.0.0.1:8001/config -d "config=$kong_yaml"
 
 sleep 1
 
-wrk -d 5 -c 16 http://127.0.0.1:8000/hello
+wrk -d 10 -c 16 http://127.0.0.1:8000/hello
 
 sleep 1
 
-wrk -d 5 -c 16 http://127.0.0.1:8000/hello
+wrk -d 10 -c 16 http://127.0.0.1:8000/hello
 
 sleep 1
 
@@ -88,11 +88,11 @@ curl -X POST http://127.0.0.1:8001/config -d "config=$kong_yaml"
 
 sleep 1
 
-wrk -d 5 -c 16 http://127.0.0.1:8000/hello
+wrk -d 10 -c 16 http://127.0.0.1:8000/hello
 
 sleep 1
 
-wrk -d 5 -c 16 http://127.0.0.1:8000/hello
+wrk -d 10 -c 16 http://127.0.0.1:8000/hello
 
 sleep 1
 
@@ -124,11 +124,11 @@ curl -X POST http://127.0.0.1:8001/config -d "config=$kong_yaml"
 
 sleep 1
 
-wrk -d 5 -c 16 http://127.0.0.1:8000/hello
+wrk -d 10 -c 16 http://127.0.0.1:8000/hello
 
 sleep 1
 
-wrk -d 5 -c 16 http://127.0.0.1:8000/hello
+wrk -d 10 -c 16 http://127.0.0.1:8000/hello
 
 sleep 1
 
