@@ -34,7 +34,7 @@ docker run -d --name kong-dbless \
   -e "KONG_STREAM_LISTEN=0.0.0.0:8087 ssl" \
     kong/kong-gateway:3.2
 
-
+sleep 20
 
 #############################################
 echo -e "\n\nkong: $worker_cnt worker + no plugin"
