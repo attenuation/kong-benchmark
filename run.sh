@@ -32,11 +32,11 @@ echo -e "\n\n upstream server"
 
 sleep 1
 
-wrk -d 10 -c 16 http://127.0.0.1:1980/hello
+wrk -d 10 -c 200 http://127.0.0.1:1980/hello
 
 sleep 1
 
-wrk -d 10 -c 16 http://127.0.0.1:1980/hello
+wrk -d 10 -c 200 http://127.0.0.1:1980/hello
 
 
 sleep 3
@@ -65,11 +65,11 @@ echo -e "\n\nfake kong: $worker_cnt worker"
 
 sleep 1
 
-wrk -d 10 -c 16 http://127.0.0.1:1981/hello
+wrk -d 10 -c 200 http://127.0.0.1:1981/hello
 
 sleep 1
 
-wrk -d 10 -c 16 http://127.0.0.1:1981/hello
+wrk -d 10 -c 200 http://127.0.0.1:1981/hello
 
 sleep 1
 
@@ -93,11 +93,11 @@ curl -X POST http://127.0.0.1:8001/config -d "config=$kong_yaml" > /dev/null
 
 sleep 1
 
-wrk -d 10 -c 16 http://127.0.0.1:8000/hello
+wrk -d 10 -c 200 http://127.0.0.1:8000/hello
 
 sleep 1
 
-wrk -d 10 -c 16 http://127.0.0.1:8000/hello
+wrk -d 10 -c 200 http://127.0.0.1:8000/hello
 
 sleep 1
 
@@ -123,11 +123,11 @@ curl -X POST http://127.0.0.1:8001/config -d "config=$kong_yaml" > /dev/null
 
 sleep 1
 
-wrk -d 10 -c 16 http://127.0.0.1:8000/hello
+wrk -d 10 -c 200 http://127.0.0.1:8000/hello
 
 sleep 1
 
-wrk -d 10 -c 16 http://127.0.0.1:8000/hello
+wrk -d 10 -c 200 http://127.0.0.1:8000/hello
 
 sleep 1
 
@@ -159,11 +159,11 @@ curl -X POST http://127.0.0.1:8001/config -d "config=$kong_yaml" > /dev/null
 
 sleep 1
 
-wrk -d 10 -c 16 http://127.0.0.1:8000/hello
+wrk -d 10 -c 200 http://127.0.0.1:8000/hello
 
 sleep 1
 
-wrk -d 10 -c 16 http://127.0.0.1:8000/hello
+wrk -d 10 -c 200 http://127.0.0.1:8000/hello
 
 sleep 1
 
