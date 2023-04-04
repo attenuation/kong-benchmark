@@ -1,5 +1,7 @@
 #! /bin/bash
 
+ulimited -n 500000
+
 if [ -n "$1" ]; then
     worker_cnt=$1
 else
@@ -42,14 +44,18 @@ sleep 3
 docker run -d --name kong-dbless \
   --network=host \
   -e "KONG_DATABASE=off" \
+  -e "KONG_LOG_LEVEL=error" \
+  -e "KONG_PROXY_ACCESS_LOG=off" \
+  -e "KONG_PROXY_STREAM_ACCESS_LOG=off" \
+  -e "KONG_ADMIN_ACCESS_LOG=off" \
+  -e "KONG_STATUS_ACCESS_LOG=off" \
+  -e "KONG_NGINX_MAIN_WORKER_RLIMIT_NOFILE=500000" \
+  -e "KONG_NGINX_EVENTS_WORKER_CONNECTIONS=500000" \
+  -e "KONG_UPSTREAM_KEEPALIVE_MAX_REQUESTS=100000" \
+  -e "KONG_NGINX_HTTP_KEEPALIVE_REQUESTS=100000" \
+  -e "KONG_UPSTREAM_KEEPALIVE_POOL_SIZE=100000" \
+  -e "KONG_PROXY_LISTEN=0.0.0.0:8000 reuseport backlog=16384, 0.0.0.0:8443 http2 ssl reuseport backlog=16384" \
   -e "KONG_NGINX_WORKER_PROCESSES=${worker_cnt}" \
-  -e "KONG_PROXY_ACCESS_LOG=/dev/stdout" \
-  -e "KONG_ADMIN_ACCESS_LOG=/dev/stdout" \
-  -e "KONG_PROXY_ERROR_LOG=/dev/stderr" \
-  -e "KONG_ADMIN_ERROR_LOG=/dev/stderr" \
-  -e "KONG_ADMIN_LISTEN=0.0.0.0:8001, 0.0.0.0:8444 ssl" \
-  -e "KONG_PROXY_LISTEN=0.0.0.0:8000, 0.0.0.0:8444 ssl, 0.0.0.0:8086 ssl" \
-  -e "KONG_STREAM_LISTEN=0.0.0.0:8087 ssl" \
     kong/kong-gateway:3.2
 
 sleep 20
