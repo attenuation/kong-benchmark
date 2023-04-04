@@ -58,7 +58,7 @@ echo -e "\n\nfake kong: $worker_cnt worker"
 
 sleep 1
 
-sed -i "s/worker_processes auto/worker_processes ${worker_cnt}/g" fake-kong/conf/nginx.conf
+ sed -i "s/worker_processes .*/worker_processes ${worker_cnt};/g" fake-kong/conf/nginx.conf
 
 wrk -d 10 -c 16 http://127.0.0.1:1981/hello
 
