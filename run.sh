@@ -1,6 +1,6 @@
 #! /bin/bash
 
-ulimited -n 500000
+ulimit -n 500000
 
 if [ -n "$1" ]; then
     worker_cnt=$1
